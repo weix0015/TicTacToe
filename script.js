@@ -4,14 +4,46 @@ window.addEventListener("load", start);
 
 // ************* CONTROLLER *************
 
+let currentPlayer = 1;
+
 function start() {
   console.log("Javascript running.");
+  displayBoard();
   makeBoardClickable();
 }
 
 function selectCell(row, col) {
-  writeToCell(row, col, 1);
+  if (readFromCell(row, col) === 0) {
+  writeToCell(row, col, currentPlayer);
   displayBoard();
+  nextTurn();
+  return true;
+  } else {
+    return false;
+  }
+}
+
+function nextTurn() {
+  if (currentPlayer === 1) {
+    currentPlayer = 2;
+    computerTurn();
+  } else if (currentPlayer === 2) {
+    currentPlayer = 1;
+    playerTurn();
+  }
+}
+
+function playerTurn() {
+
+}
+
+function computerTurn() {
+  let row;
+  let col;
+  do {
+    row = Math.floor(Math.random() * 3);
+    col = Math.floor(Math.random() * 3);
+  } while (!selectCell(row, col));
 }
 
 // ************* VIEW *************
